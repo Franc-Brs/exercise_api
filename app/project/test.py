@@ -40,3 +40,55 @@ for name, obj in inspect.getmembers(components):
             c = obj(par)
             c.info()
 """
+import json
+x = """{
+        "O2": {
+            "operation": "multiply",
+            "input": {
+                "O1": {
+                    "operation": "sum",
+                    "input": {
+                        "M1": {
+                            "modulator": "amplitudemod",
+                            "parameters": {
+                                "multiplier": 5
+                            },
+                            "input": {
+                                "G1": {
+                                    "generator": "squarewave",
+                                    "parameters": {
+                                        "amplitude": 5,
+                                        "frequency": 12
+                                    }
+                                }
+                            }
+                        },
+                        "M2": {
+                            "modulator": "thresholdup",
+                            "parameters": {
+                                "threshold": 5
+                            },
+                            "input": {
+                                "G2": {
+                                    "generator": "sineewave",
+                                    "parameters": {
+                                        "amplitude": 5,
+                                        "frequency": 12
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "G3": {
+                    "generator": "sawtooth",
+                    "parameters": {
+                        "amplitude": 5,
+                        "frequency": 12
+                    }
+                }
+            }
+        }
+    }"""
+y = json.loads(x)
+print(json.dumps(y, indent=2))
