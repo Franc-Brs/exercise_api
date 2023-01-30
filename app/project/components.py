@@ -44,11 +44,3 @@ class SawToothWave(AbstractGenerator):
 
     def signal(self):
         return self.amplitude * signal.sawtooth(self.arg)
-
-c = SquareWave(5, 12)
-c.signal()
-c.info()
-#print(c.__name__)
-print("ooooooooooooooooo")
-#newcl = type("SquareWave",)
-#newcl.signal()
