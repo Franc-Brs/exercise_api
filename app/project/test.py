@@ -25,6 +25,12 @@ el3.info()
 
 el3 = components.ThresholdDown(parameters=par2, input=el)
 el3.info()
+
+el4 = components.SumOperation(input_1=el, input_2=el)
+el4.info()
+
+el5 = components.MultiplyOperation(input_1=el, input_2=el)
+el5.info()
 """
 for name, obj in inspect.getmembers(components):
     if inspect.isclass(obj):
