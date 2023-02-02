@@ -1,49 +1,31 @@
 {
-    "O2": {
-        "action": "multiply",
+    "action": "sum",
+    "input": [
+      {
+        "action": "amplitudemod",
+        "parameters": {
+          "multiplier": 5
+        },
         "input": {
-            "O1": {
-                "action": "sum",
-                "input": {
-                    "M1": {
-                        "action": "amplitudemod",
-                        "parameters": {
-                            "multiplier": 5
-                        },
-                        "input": {
-                            "G1": {
-                                "action": "squarewave",
-                                "parameters": {
-                                    "amplitude": 5,
-                                    "frequency": 12
-                                }
-                            }
-                        }
-                    },
-                    "M2": {
-                        "action": "thresholdup",
-                        "parameters": {
-                            "threshold": 5
-                        },
-                        "input": {
-                            "G2": {
-                                "action": "sineewave",
-                                "parameters": {
-                                    "amplitude": 5,
-                                    "frequency": 12
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "G3": {
-                "action": "sawtooth",
-                "parameters": {
-                    "amplitude": 5,
-                    "frequency": 12
-                }
-            }
+          "action": "squarewave",
+          "parameters": {
+            "amplitude": 5,
+            "frequency": 12
+          }
         }
-    }
-}
+      },
+      {
+        "action": "thresholdup",
+        "parameters": {
+          "threshold": 5
+        },
+        "input": {
+          "action": "sineewave",
+          "parameters": {
+            "amplitude": 5,
+            "frequency": 12
+          }
+        }
+      }
+    ]
+  }

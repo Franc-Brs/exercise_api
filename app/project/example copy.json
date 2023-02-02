@@ -1,42 +1,43 @@
 {
     "action": "multiply",
     "input": [
-        {
-            "action": "sum",
-            "input": [
-                {
-                    "action": "amplitudemod",
-                    "parameters": {
-                        "multiplier": 5
-                    },
-                    "input": {
-                            "action": "squarewave",
-                            "parameters": {
-                                "amplitude": 5,
-                                "frequency": 12
-                            }
-
-                    }},{
-                    "action": "thresholdup",
-                    "parameters": {
-                        "threshold": 5
-                    },
-                    "input": {
-                        "action": "sineewave",
-                        "parameters": {
-                            "amplitude": 5,
-                            "frequency": 12
-                        }
-                    }}
-
-            ]
-        },
-        {
-            "action": "sawtooth",
+      {
+        "action": "sum",
+        "input": [
+          {
+            "action": "amplitudemod",
             "parameters": {
+              "multiplier": 5
+            },
+            "input": {
+              "action": "squarewave",
+              "parameters": {
                 "amplitude": 5,
                 "frequency": 12
+              }
             }
+          },
+          {
+            "action": "thresholdup",
+            "parameters": {
+              "threshold": 5
+            },
+            "input": {
+              "action": "sineewave",
+              "parameters": {
+                "amplitude": 5,
+                "frequency": 12
+              }
+            }
+          }
+        ]
+      },
+      {
+        "action": "sawtooth",
+        "parameters": {
+          "amplitude": 5,
+          "frequency": 12
         }
+      }
     ]
-}
+  }

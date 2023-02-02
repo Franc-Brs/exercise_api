@@ -31,7 +31,7 @@ el4.info()
 
 el5 = components.MultiplyOperation(input_1=el, input_2=el)
 el5.info()
-
+print("first...........")
 
 """
 for name, obj in inspect.getmembers(components):
@@ -59,7 +59,41 @@ x = """
   }
 }
 """
-z="""
+z = """
+{
+    "action": "sum",
+    "input": [
+      {
+        "action": "amplitudemod",
+        "parameters": {
+          "multiplier": 5
+        },
+        "input": {
+          "action": "squarewave",
+          "parameters": {
+            "amplitude": 5,
+            "frequency": 12
+          }
+        }
+      },
+      {
+        "action": "amplitudemod",
+        "parameters": {
+          "multiplier": 5
+        },
+        "input": {
+          "action": "sinewave",
+          "parameters": {
+            "amplitude": 5,
+            "frequency": 12
+          }
+        }
+      }
+    ]
+  }
+"""
+
+l = """
 {
     "action": "multiply",
     "input": [
@@ -85,7 +119,7 @@ z="""
               "threshold": 5
             },
             "input": {
-              "action": "sineewave",
+              "action": "sinewave",
               "parameters": {
                 "amplitude": 5,
                 "frequency": 12
@@ -95,7 +129,7 @@ z="""
         ]
       },
       {
-        "action": "sawtooth",
+        "action": "sawtoothwave",
         "parameters": {
           "amplitude": 5,
           "frequency": 12
@@ -105,6 +139,8 @@ z="""
   }
 """
 y = json.loads(x)
+k = json.loads(z)
+f = json.loads(l)
 
 
 def return_class(dictionary):
@@ -121,15 +157,19 @@ def json_parsing(dictionary):
 
     if isinstance(dictionary, dict):
 
-        # print(dictionary["action"])
         if dictionary["action"] in ["amplitudemod", "thresholdup", "thresholddown"]:
             param = components.ModulatorsParameters(**dictionary["parameters"])
-        # if dictionary["action"] in ["squarewave", "sinewave", "sawtoothwave"]:
-        #    param = components.GeneratorsParameters(**dictionary["parameters"])
 
-        # print(param)
+        if "input" in dictionary and isinstance(dictionary["input"], list):
+            class_op = return_class(dictionary)
 
-        if "input" in dictionary and dictionary["input"]["action"] in [
+            el_op = class_op(
+                input_1=json_parsing(dictionary["input"][0]),
+                input_2=json_parsing(dictionary["input"][1]),
+            )
+            return el_op
+
+        elif "input" in dictionary and dictionary["input"]["action"] in [
             "squarewave",
             "sinewave",
             "sawtoothwave",
@@ -143,39 +183,18 @@ def json_parsing(dictionary):
 
             el_down = class_down(param_down)
             el_up = class_up(parameters=param, input=el_down)
-            print("...........")
-            print(el_down())
-            print(el_up())
+            return el_up
+
         else:
-            json_parsing(dictionary["input"])
+            class_down = return_class(dictionary)
 
-        # print(param)
-        # print(classe)
-        # el = classe(param)
-        # <el.info()
-        """
-        for k, v in dictionary.items():
-            if k == "action":
-                if v in ["amplitudemod", "thresholdup", "thresholddown"]:
-                    param = components.ModulatorsParameters()
-            if k == "parameters":
-                print(param)
-            if isinstance(v, (dict, list)):
-                #print(k)
-                # print("--")
-                # print(v)
-                json_parsing(v)
-            else:
-                #print("---")
-                #print(k, " : ", v)
-                print("ciao")
-
-    # elif isinstance(obj, list):
-    #    for item in obj:
-    #       print(item)
-    else:
-        print("it should be a dictionary")
-        """
+            param_down = components.GeneratorsParameters(**dictionary["parameters"])
+            el_down = class_down(param_down)
+            return el_down
 
 
-json_parsing(y)
+print(json_parsing(y)())
+print("second-....................")
+print(json_parsing(k)())
+print("third.........")
+print(json_parsing(f)())

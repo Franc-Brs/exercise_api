@@ -135,7 +135,7 @@ class AbstractOperators(ABC, Base):
 
 class SumOperation(AbstractOperators):
 
-    _name = "sumoperation"
+    _name = "sum"
 
     def __call__(self):
         return np.add(self.input_1, self.input_2)
@@ -143,7 +143,7 @@ class SumOperation(AbstractOperators):
 
 class MultiplyOperation(AbstractOperators):
 
-    _name = "multiplyoperation"
+    _name = "multiply"
 
     def __call__(self):
         return np.multiply(self.input_1, self.input_2)
